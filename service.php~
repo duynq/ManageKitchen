@@ -1,0 +1,196 @@
+<?php
+    require_once './src/config.php';
+    $title = '';
+    $category = '';
+    $office = '';
+    if(isset( $_GET['p_name'])){
+        $title= $_GET['p_name'];
+    };
+
+    if(isset( $_GET['p_domain'])){
+        $category = $_GET['p_domain'];
+    };
+
+    if(isset( $_GET['p_office'])){
+        $office = $_GET['p_office'];
+    };
+
+?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Các dịch vụ công</title>
+        
+        <link href="css/service.css" rel="stylesheet" type="text/css">
+        <script src="js/jquery.js"></script>
+        <script src="js/service.js" ></script>
+    </head>
+    
+    <body>
+        
+        <div class="portletheadertv">
+            <!--form action="service.php" method="GET">
+                <table cellpadding="2" cellspacing="2" border="0" id="itemSearchTable">
+
+                
+                    <tbody>
+                        <tr>
+                            <td>Tiêu đề</td>
+                            <td >
+                                <input type="text" size="50" maxlength="100" name="p_name" 
+                                       value='<?php if($title !=''){
+                                           echo "*" . "$title";
+                                       }
+?>'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lĩnh vực</td>
+                            <td><select name="p_domain" id="domain">
+                                    <option value="">-- Tất cả --</option>
+                                    <?php 
+                                        $query = "select * from category";
+                                        $res = mysql_query($query);
+                                        if($category!=''){
+                                            while($row = mysql_fetch_array($res)){
+                                                if($row[0] == $category){
+                                                     echo "<option value='$row[0]' selected ='selected'>$row[1]</option>";
+                                                }else{
+                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                } 
+                                            }
+                                        }else{
+                                            while($row = mysql_fetch_array($res)){
+                                               echo "<option value='$row[0]'>$row[1]</option>";
+                                                 
+                                            }
+                                        }
+                                        
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Đơn vị thụ lý</td>
+                            <td><select name="p_office" id="office">
+                                    <option value="" selected="selected">-- Tất cả --</option>
+                                    <?php 
+                                        $query = "select * from office";
+                                        $res = mysql_query($query);
+                                        
+                                        if($office!=''){
+                                            while($row = mysql_fetch_array($res)){
+                                                if($row[0] == $office){
+                                                     echo "<option value='$row[0]' selected ='selected'>$row[1]</option>";
+                                                }else{
+                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                } 
+                                            }
+                                        }else{
+                                            while($row = mysql_fetch_array($res)){
+                                               echo "<option value='$row[0]'>$row[1]</option>";
+                                                 
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="submit" value="Tìm kiếm">
+                            </td>
+                        </tr>
+                    </tbody>
+                
+                </table>
+            </form-->
+        
+
+
+            
+            
+            
+
+            <div style="text-align:justify;margin:10px 5px 0px 5px;">
+                <div style="line-height:10px;">&nbsp;</div>
+                <table cellpadding="0" cellspacing="0" border="1" bordercolor="#33ccff" style="font:normal 12px Arial;text-align:justify;border-collapse:collapse;width:100%;" id="showByMainTbl">
+                    <colgroup>
+                        <col width="5%">
+                        <col width="45%">
+                        <col width="15%">
+                        <col width="20%">
+                        <col width="15%">
+                    </colgroup>
+                    <tbody>
+                        <tr style="text-align:center;" class="td1">
+                            <td style="font-weight:bold;">ID dịch vụ</td>
+                            <td style="text-transform:uppercase;font-weight:bold;">Tên thủ tục hành chính</td>
+                            <td style="font-weight:bold;">Lĩnh vực</td>
+
+                            <td style="font-weight:bold;">Cơ quan thực hiện</td>
+                        </tr>
+                        
+                        
+                        
+                        <?php
+                            
+                            
+                            
+                            if($title . $office. $category ==''){
+                                $query = "select s.service_id, s.name, o.name, c.name from service s"
+                                    . " inner join category c on s.category_id = c.category_id"
+                                    . " inner join office o on o.office_id = s.office_id";
+
+                            }else{
+                                $query = "select s.service_id, s.name, o.name, c.name from service s"
+                                    . " inner join category c on s.category_id = c.category_id"
+                                    . " inner join office o on o.office_id = s.office_id"
+                                    . " where ";
+                                if($title!=''){
+                                    $query = $query." s.name like '%$title%' and";
+                                };
+                                if($office !=''){
+                                    $query = $query." o.office_id = '$office' and";
+                                } 
+
+                                if($category!=''){
+                                    $query = $query." c.category_id = '$category' and";
+                                }
+
+                                $query = substr($query,0, -3);
+                                
+                            }
+                            //echo $query;
+                            
+                        
+
+//                            
+                            $res = mysql_query($query);
+                            while($row = mysql_fetch_array($res)){
+                                echo "<tr class='td2_stt' style='text-align:justify;'>
+                                        <td style='text-align:center;' >$row[0]</td>
+                                        <td class='special_ul' name='$row[0]'>$row[1]</td>
+                                        <td style='text-align:center;'>$row[2]</td>
+                                        <td style='text-align:center;'>$row[3]</td>
+                                    </tr>";
+                            }
+                        
+                        ?>
+                        
+
+
+
+                    </tbody>
+                </table>
+            
+            </div>
+        
+        </div>
+    
+    
+    
+    </body>
+</html>

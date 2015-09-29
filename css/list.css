@@ -1,0 +1,37 @@
+
+#th1{
+	display: block;
+	width: 450px;
+}
+#tb1{
+	display: block;
+	width: 480px;
+	height: 400px;       
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
+#th2{
+	display: block;
+	width: 450px;
+}
+#tb2{
+	display: block;
+	width: 480px;
+	height: 400px;       
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
+#content{
+	text-align: center;
+	height: 350px;
+	width: 1000px;
+	overflow-y: auto;    
+    overflow-x: hidden;
+}
+#content2{
+	text-align: center;
+	height: 350px;
+	width: 1000px;
+	overflow-y: auto;    
+    overflow-x: hidden;
+}

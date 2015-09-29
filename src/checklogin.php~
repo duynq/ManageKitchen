@@ -1,0 +1,31 @@
+<?php
+    require_once 'config.php';
+    session_start();
+    $user = $_GET['user'];
+    $pass = $_GET['pass'];
+    
+    //kiem tra hop thuc
+    
+    //ket thuc kiem tra
+    
+    $query = "select * from user where username = '$user'";
+    $res = mysql_query($query);
+    if(mysql_num_rows($res) ==0){
+        echo 2;
+    }else{
+        //kiem tra pass
+        $pass = md5($pass);
+        $row = mysql_fetch_array($res);
+        
+        if($row[3] == $pass){
+            $_SESSION['name'] = $row[1];
+            $_SESSION['level'] = $row[4];
+            $_SESSION['user_id'] = $row[0];
+            $_SESSION['username'] = $row[2];
+            //echo 1;
+        }else{
+            //echo 2;
+        }
+    }
+    
+    //echo $query;

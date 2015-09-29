@@ -1,0 +1,123 @@
+#registration-form
+{
+	width: 0px; 
+    height: 0px;
+	font-size: 16px; 
+    margin-left: 100px;
+}
+
+td h3 {
+    width: 200px;  
+    color: rgb(156, 19, 13);
+}
+
+fieldset#above {
+    width: 500px;
+    height: auto;
+}
+
+fieldset#under {
+    margin-top: 50px;
+    width: 500px;
+    height: auto;
+}
+
+legend {
+    font-size: 18px;
+    color: #3D2B1F;
+    font-weight: bold;
+}
+#registration-form input[type="text"],input[type="password"],input[type="email"],input[type="tel"],input[type="date"]
+{
+	width: 250px;
+    margin-bottom: 5px;
+    margin-top: 5px; 
+    padding: 5px 5px 5px 5px;
+	font-size: 14px;
+	border: 1px solid #96A6C5;
+    font-family: Times New Roman;
+}
+
+#registration-form input[type="submit"]
+{
+    margin-top: 50px;
+	padding: 7px 25px 7px;
+	font-size: 16px; 
+    font-family: Verdana;
+	font-weight: bold; 
+    color: white;
+	border: 1px solid #3B6E22; 
+    border-radius: 2px 2px 2px 2px;
+	background: rgb(156, 25, 15);
+	cursor: pointer;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+#registration-form select
+{
+    width: 262px;
+	height: 30px;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px; 
+	font-size: 14px; 
+	border: 1px solid #96A6C5;
+}
+
+#registration-form label{ 
+    cursor: pointer; 
+    color: #1D2A5B;
+    float: right;
+}
+
+td.float-right {
+    width: 130px;
+    float: right;
+    padding-top: 12px;
+    margin-right: 10px;
+}
+div.notif {
+    margin-bottom: 10px;
+    padding-left: 150px;
+}
+#registration-form .space-100px{ height: 100px; }
+
+h2 {
+    text-align: center;
+    color: #000000;
+    
+}
+
+select {
+    font-family: Times New Roman;
+}
+
+::-webkit-input-placeholder { 
+    font-family: Times New Roman;
+}
+::-moz-placeholder { 
+    font-family: Times New Roman;
+} /* firefox 19+ */
+:-ms-input-placeholder { 
+    font-family: Times New Roman;
+} /* ie */
+input:-moz-placeholder {
+    font-family: Times New Roman;
+}
+
+div#note {
+    display: inline;
+    float: right;
+    margin-right: 100px;
+    margin-top: 35px;
+    color: #1D2A5B;
+}
+
+td{
+    font-size: 15px;
+}
+
+#all_error{
+    width:150px;
+    text-align: center;
+}

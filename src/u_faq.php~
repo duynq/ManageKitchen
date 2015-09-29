@@ -1,0 +1,10 @@
+<?php
+    require_once './config.php';
+    session_start();    
+    $ans = $_POST['ans'];
+    $id=$_POST['id'];
+    $query = "UPDATE `faq` SET `answer`='$ans' WHERE `Id` = $id";
+    //$query = "delete from faq where `Id`='$id'";
+    mysql_query($query);
+    echo 1 ;
+?>

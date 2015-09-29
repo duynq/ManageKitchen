@@ -1,0 +1,68 @@
+function sent_(){
+    title = $("#title").val();
+    question = $("#question").val();
+    email = $("#email").val();
+    category = $("#category").val();
+    
+    //chuyen du lieu len server
+    
+    
+	if(title.length < 10){
+		alert ("Tiêu đề gì ngắn vậy?");
+		}else if(question.length < 14){
+		alert ("Hỏi gì ngắn vậy?");
+		}else{
+
+    $.ajax({
+       url:'src/create_question.php',
+       type:'POST',
+       data:{title:title, question:question, email:email, category:category},
+        success: function(data) {
+            if(data==1){
+                alert("Đã gửi");
+            }else{
+                document.write(data);
+                
+                //ajax viet lai
+            }
+        }
+    });
+    }
+}
+
+function save_(t, id){
+    ans=t.previousSibling.previousSibling.value;
+//    alert(id);
+    $.ajax({
+       url:'src/u_question.php',
+       type:'POST',
+       data:{ans:ans, id:id},
+        success: function(data) {
+            if(data==1){
+                alert("Trả lời thành công");
+            }else{
+                document.write(data);
+                
+                //ajax viet lai
+            }
+        }
+    });
+}
+function del_( id){
+    //ans=t.previousSibling.previousSibling.value;
+//    alert(id);
+    $.ajax({
+       url:'src/del_question.php',
+       type:'POST',
+       data:{ id:id},
+        success: function(data) {
+            if(data==1){
+                alert("Đã xóa");
+            }else{
+                document.write(data);
+                
+                //ajax viet lai
+            }
+        }
+    });
+}

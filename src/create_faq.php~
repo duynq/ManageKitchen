@@ -1,0 +1,16 @@
+<?php
+    require_once './config.php';
+    session_start();
+    
+    $title = $_POST['title'];
+    $question=$_POST['question'];
+    $ans=$_POST['ans'];
+    $category=$_POST['category'];
+    
+    $query = "INSERT INTO `faq`(`title`, `question`, `answer`,  `Category_Id`)"
+            . " VALUES "
+            . "('$title','$question','$ans','$category')";
+    mysql_query($query);
+    echo 1;
+  ?>
+

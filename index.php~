@@ -1,0 +1,169 @@
+<?php
+    session_start();
+    
+    if(!isset($_GET['page']) == 'home') $_GET['page']='home';
+    
+    if($_GET['page'] == 'home'){
+        $cur = 'container.php';
+    }else if($_GET['page']=='manager'){
+        $cur = 'manager_user.php';
+    } else if($_GET['page']=='create_service'){
+        $cur = 'create_service.php';
+    }else if($_GET['page']=='services'){
+        $cur = 'services.php';
+    }else if($_GET['page']=='faq'){
+        $cur = 'faq.php';
+    }else if($_GET['page']=='new_question'){
+        $cur = 'new_question.php';
+    }
+    
+    ;
+    
+?>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Trang thông tin dịch vụ công</title>
+        <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+			<link rel='stylesheet' href='popbox.css' type='text/css' media='screen' charset='utf-8'>
+        <link rel="stylesheet" href="css/style.css" media="screen">
+        <link rel="stylesheet" href="css/style.responsive.css" media="all">
+
+
+        <script src="js/jquery.js"></script>
+        <script src="js/main.js"></script>
+			<script type='text/javascript' charset='utf-8' src='js/popbox.js'></script>
+
+        <style>.art-content .art-postcontent-0 .layout-item-0 { margin-bottom: 5px;  }
+        .art-content .art-postcontent-0 .layout-item-1 { color: #364749; border-spacing: 10px 0px; border-collapse: separate;  }
+        .art-content .art-postcontent-0 .layout-item-2 { border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-width:2px;border-right-width:2px;border-bottom-width:2px;border-left-width:2px;border-top-color:#C7C7C7;border-right-color:#C7C7C7;border-bottom-color:#C7C7C7;border-left-color:#C7C7C7; color: #1E2829; background: #C2ECF5; padding-right: 10px;padding-left: 10px; border-radius: 10px;  }
+        .ie7 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+        .ie6 .art-post .art-layout-cell {border:none !important; padding:0 !important; }
+
+        </style>
+    </head>
+    
+    <body>
+        <div id="art-main">
+            <header class="art-header">
+
+                <div class="art-shapes">
+						<img width="1100" height="130" alt="" src="images/banner.png" style="float: left; margin-right: 20px" class="">
+               </div>	                     
+            </header>
+            
+            
+            <nav class="art-nav" >
+                <ul class="art-hmenu">
+                    <li><a <?php if($_GET['page'] == 'home') echo "class='active'"?> id="homepage">Trang chủ</a></li>
+                    <li><a <?php if($_GET['page'] == 'services') echo "class='active'"?> id="services">Dịch vụ công</a></li>
+                    <li><a <?php if($_GET['page'] == 'faq') echo "class='active'"?> id="faq">Câu hỏi thường gặp</a></li>
+                    <li><a <?php if($_GET['page'] == 'new_question') echo "class='active'"?> id="new_question">Hỏi đáp</a></li>
+                    
+                    
+                    <?php 
+                        if(isset($_SESSION['level'])){
+                        if($_SESSION['level'] == 1) {?>
+                        <li><a <?php if($_GET['page'] == 'manager') echo "class='active'"?> id="manager">Quản lý tài khoản</a></li>
+                    <?php
+                        }else if($_SESSION['level'] == 2){
+                    ?>
+                        <li><a <?php if($_GET['page'] == 'create_service') echo "class='active'"?> id="create_service">Tạo dịch vụ mới</a></li>
+          		
+                    <?php
+                        }}
+                    ?>
+                        
+                        
+                </ul> 
+                <div class="art-blockcontent">
+                    <?php
+                        if (!isset($_SESSION['user'])) {
+                    ?>
+                    <script type='text/javascript' charset='utf-8'>
+    							$(document).ready(function(){
+      						$('.popbox').popbox();
+    							});
+ 						 </script>
+ 						 <div class='popbox'>
+    						<a class='open' href='#'>
+      						 Đăng nhập
+    						</a>
+    						<div class='box'>
+                    <!--form action="" autocomplete="on" method="GET">
+                        <p style="text-align: right;">
+                            <span id="warring" style="color:red"></span>
+                            <!--span style="font-size: 12px; color:#FFFFFF">Tài khoản&nbsp;</span-->
+                            <input type="text" style="font-size: 10px;" id="username">
+                            <!--span style="font-size: 12px; color:#FFFFFF">&nbsp;Mật khẩu&nbsp;</span-->
+                            <input type="password" style="font-size: 10px;" id="pass">
+                            <span style="font-size: 12px;">&nbsp;</span>
+                            <input type="submit" value="Đăng nhập" class="art-button" style="font-size: 15px;color:#FFFFFF" id="b_login">&nbsp;  &nbsp;      
+                        </p>
+                    </form-->
+                    <form action="http://gristmill.createsend.com/t/j/s/nklki/" method="post" id="subForm">
+          <div class="input">
+            <input type="text" name="cm-nklki-nklki" id="nklki-nklki" placeholder="Email" />
+          </div>
+          <div class="input">
+            <textarea name="cm-f-tlhll" id="Message" placeholder="Comments"></textarea>
+          </div>
+          <input type="submit" value="Đăng nhập" /> 
+        </form>
+                    </div>
+                    </div>
+                    <?php
+                        } else {
+                    ?>
+                        <p style="text-align: right;">
+                            <span style="font-size: 12px; color:#FFFFFF">Xin Chào, <?php echo $_SESSION['user']; ?></span>
+                            <input style="color: #FFFFFF" type="button" value="Thoát" class="art-button" style="font-size: 12px;" id="b_logout">
+                        </p>
+                        
+                        
+                    <?php
+                        }
+                    ?>
+                </div>
+            </nav>
+            
+            
+            
+            
+            <div id="main_frame">
+                <iframe id='center' src='<?php echo $cur ?>'  scrolling='no' onload='calcHeight();'>  </iframe>
+            </div>
+            
+            
+            <footer class="art-footer">
+                <h1 style="text-align: left;">
+                    <span style="font-family: Verdana, Geneva, sans-serif; font-size: 14px; font-weight: bold; line-height: normal;  color: #000000;">
+                        <span style="color: rgb(255, 255, 255); font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px;">
+                            <span style="color: #000000;">Địa chỉ:</span>&nbsp;
+                            <span style="color: #000000;">Đại học Công nghệ, đại học Quốc gia Hà Nội</span>&nbsp;                                                     
+                        </span>
+                            
+                    </span>
+                    
+                    <br>
+                </h1>
+               
+                <p style="font-size: 12px; line-height: 18px; color: #FFFFFF; font-family: Arial, Helvetica, sans-serif; text-align: justify; ">
+                    <span style="color: rgb(0, 0, 0); font-weight: bold;">
+                        Biên tập: Nguyễn Tiến Độ, Dương Ngọc Diễn.
+                    </span>
+                </p>
+                <p style="font-size: 12px; line-height: 18px; color: #FFFFFF; font-family: Arial, Helvetica, sans-serif; text-align: justify;">
+                    <span style="color: rgb(0, 0, 0); font-weight: bold;">
+                        Ghi rõ nguồn Cổng thông tin điện tử khi trích dẫn lại tin tại trang web này.
+                    </span>
+                </p>
+            </footer>
+        </div>
+
+
+    </body>
+</html>

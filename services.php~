@@ -1,0 +1,97 @@
+<?php
+//	$conn=mysql_connect("localhost","root","") or die("can't connect this database");
+//	mysql_select_db("services",$conn);
+//	$query = "select * from office";
+//        $res = mysql_query($query);
+//        $row = mysql_fetch_array($res);
+?>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="Stylesheet" href="css/mystyle.css" type="text/css">
+    <link rel="Stylesheet" href="css/service.css" type="text/css">
+    <script src="js/jquery.js"></script>
+    <script src="js/service.js"></script>
+    <title>Dịch vụ công</title>
+</head>
+
+<body>
+    
+	<div id="main">
+    <div id="leftbar">
+                        <!--ul class="single-vertical-menu">        
+                        <?php 
+                            require_once('./src/config.php');
+                            $sql3="select * from category where id != 0";
+                            $select1=mysql_query($sql3);
+                            while($row1=mysql_fetch_array($select1)){
+                        ?>
+                        	<table class="bar" width="100%" border='1' borderColor='#FFFFFF' style="border-collapse: collapse; " align='center'">
+                            <td bgcolor="#eeeeee" style="color:#000000; height: 60px"  class="choose" onclick="change(<?php echo $row1[0]?>)"><?php echo $row1[1]?></td>                            
+                             </table>   
+                        <?php
+                                
+                        }
+
+                        ?>
+                    
+                  
+			</ul-->				
+		</div>
+		<div id = search>
+		
+		<
+		
+		
+		
+		</div>
+      <div id="content">
+                        
+
+                        <!--h3 style="color:#F07A4E ">DANH SÁCH THỦ TỤC HÀNH CHÍNH</h3-->
+                       
+                        
+                        <div >
+                        <table id ='out' class="calc" width="100%" border='1' borderColor='#3D2B1F' style="border-collapse: collapse; color: #F07A4E" align='center'>
+                            <tr bgcolor="#F07A4E">
+                                <td width="5%" align="center">
+                                    <div><b>STT</b></div>
+                                </td>
+                                <td align="center">
+                                    <div><b>Tên thủ tục</b></div>
+                                </td>
+                                
+                            </tr>
+                            
+                            <?php 
+                                $query = "select * from document where category_id=1";
+                                $res = mysql_query($query);
+                                while($row = mysql_fetch_array($res)){
+                            ?>
+                            
+                                <tr height="50px;">
+                                    <td align="center"><?php echo $row[0] ?></td>
+                                    <td style="padding-left:5px;">
+                                        <a onclick="change_service_info(<?php echo $row[0]?>)" class="choose">
+                                            <?php echo $row[1]?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            
+                            
+                            <?php 
+                                
+                            
+                                };
+                                
+                            ?>
+                            
+                        
+			</table>
+			</div>
+			</div>
+        
+</body>
+</html>

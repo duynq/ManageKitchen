@@ -1,0 +1,23 @@
+<?php
+    
+    require_once './config.php';
+    session_start();
+    if(isset($_SESSION['user'])){
+        $user = $_POST['user'];
+        $pword = $_POST['n_pword'];      
+        $level = $_POST['level'];    
+        $sql="select * from user where user='".$user."'";
+      	$query=mysql_query($sql);
+      	if(mysql_num_rows($query) != "" ){
+      		echo("Username da ton tai");
+      		//echo 2;
+      	}else {
+      		
+        		$query = "insert into user(user,pword,level) values ('".mysql_real_escape_string($user)."', sha1('".mysql_real_escape_string($pword)."'), '$level' )";
+        		mysql_query($query);
+ 				echo 1;
+ 		}
+     }else{
+        echo 3;
+        }
+    ?>

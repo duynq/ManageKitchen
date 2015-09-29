@@ -1,0 +1,81 @@
+$(document).ready(function(){
+    //alert("asdf");
+//    $(".special_ul").click(function(){
+//        //alert($(this).attr('name'));
+//        id=$(this).attr('name');
+//        window.location.assign("service_info.php?page=service_info&id="+id);
+//    });
+    
+    
+            
+});
+
+function change(t){
+    //alert(t);
+    $.ajax({
+        url:'src/get_service.php?id='+t,
+        dataType:'json',
+        success: function(data) {
+            if(data==2){
+                alert("Không tìm thấy dữ liệu");
+            }else{
+                //alert(data);
+                result_ = data.result;
+                $("#out").empty();
+                $("#out").append("<tr bgcolor='#fffdf9'>"+
+                                    "<td width='5%' align='center'>"+
+                                        "<div><b>STT</b></div>"+
+                                    "</td>"+
+                                    "<td align='center'>"+
+                                        "<div><b>Tên thủ tục</b></div>"+
+                                    "</td>"+
+
+                                "</tr>");
+                $.each(result_, function(){
+                    $("#out").append("<tr height='50px;'>"+
+                                            "<td align='center'>"+this['id']+"</td>"+
+                                            "<td style='padding-left:5px;'>"+
+                                                "<a onclick='change_service_info("+this['id']+")' class='choose'>"+this['name']+"</a></td>"+
+                                        +"</tr>")
+                });
+            }
+        }
+    });
+}
+
+function change_service_info(t){
+    //window.location.assign("service_info.php?id="+t);
+    {
+ 
+    var xmlhttp;
+ 
+    if (window.XMLHttpRequest)
+ 
+    {
+ 
+        xmlhttp=new XMLHttpRequest(); // khởi tạo dành cho IE7+, Firefox, Chrome, Opera, Safari...
+ 
+    }
+ 
+    else
+ 
+    {
+ 
+     		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); //khởi tạo dành cho IE5,IE6
+ 
+    }
+    xmlhttp.onreadystatechange = function()
+    {
+       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) //kiểm tra mã trạng thái là 4 và tình trạng là 200 có nghĩa thành công
+      {
+           document.getElementById("content").innerHTML = xmlhttp.responseText;  //đổ kết quả dạng text về vào phần tử div có id results
+      }
+    }
+   xmlhttp.open("POST","service_info.php?id="+t",true); //sử dụng phương thức post gọi file process_ajax.php để xử lý không đồng bộ
+ 
+   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded"); //thêm 1 custom http header cho phép gửi các cặp dữ liệu dạng key=value trong send
+ 
+   xmlhttp.send("num="+num); //gửi số thứ tự của liên kết
+ 
+}
+}

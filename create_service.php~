@@ -1,0 +1,206 @@
+<?php 
+    session_start();
+    
+    if(isset($_SESSION['level']) && ($_SESSION['level'] == 2)){
+        
+        require_once './src/config.php';
+        
+        
+?>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="css/create_service.css">
+        <link type="text/css" rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        
+        <title>Tạo mới dịch vụ</title>
+    </head>
+    <body>
+    <table border='1' borderColor='#3D2B1F' style="border-collapse: collapse;" align='center' id='main_table'>
+        
+    <?php if( !isset($_POST['name']) || $_POST['name'] ==''){?>
+        
+        
+        
+            <h2>Tạo mới dịch vụ</h2>
+            <div class="notif"><span id="notif" style="color: red;">&nbsp;</span></div>
+            <div id="registration-form">
+                <form action="create_service.php" method="POST" enctype="multipart/form-data">
+                    <fieldset id="above">
+                        <legend>Thông tin chính</legend>
+                        <table >
+                            <tr>
+                                <!--td class="float-right"><label for="id">ID Dịch vụ :</label></td-->
+                                <!--td>
+                                    <input type="text" id="id" placeholder="VD:1535547" name="id">
+                                    <span id="error_id" style="color:red" ></span>
+                                </td-->
+
+                            </tr>
+                            <tr>
+                                <td class="float-right">Tên thủ tục (<span style="color: red;">*</span>):</td>
+                                <td><textarea id="name" required="required" name="name" placeholder="....." style="width:400px; height:200px"></textarea></td>
+                            </tr>
+
+                            <tr>
+                                <td class="float-right"><label for="category">Lĩnh vực (<span style="color: red;">*</span>):</label></td>
+                                <td><select id="category" required="required" name="category">
+                                        <option value="" selected="selected">Chọn lĩnh vực</option>
+                                        <?php 
+                                            $query = "select * from category";
+                                            $res = mysql_query($query);
+                                            while($row = mysql_fetch_array($res)){
+                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td class="all_error"><span id="error_category" style="color:red"></span></td>
+
+                            </tr>
+                            
+                        </table>
+                    </fieldset>
+                    <fieldset id="under">
+                        <legend>Mô tả chi tiết</legend>
+                        <table >
+
+                                <tr>
+                                    <td class="float-right"><label for="steps">Trình tự thực hiện (<span style="color: red;">*</span>):</label></td>
+                                    <td><textarea id="steps" required="required" name="steps" placeholder="Bước 1:....." style="width:600px; height:200px"></textarea></td>
+                                    <td class="all_error"><span id="error_steps" style="color:red"></span></td>
+                                </tr>
+
+                                <tr>
+
+                                    <td class="float-right"><label for="way">Cách thức thực hiện (<span style="color: red;">*</span>):</label></td>
+                                    <td><textarea id="way" required="required" name="way" placeholder="....." style="width:600px; height:200px"></textarea></td>
+                                    <td class="all_error"><span id="error_way" style="color:red"></span></td>
+                                </tr>
+
+                                
+
+
+                                <tr>
+                                    <td class="float-right"><label for="time_process">Thời gian giải quyết (<span style="color: red;">*</span>):</label></td>
+                                    <td><textarea id="time_process" required="required" name="time_process" placeholder="..." style="width:600px; height:200px"></textarea></td>
+                                    <td class="all_error"><span id="error_time_process" style="color:red"></span></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="float-right"><label for="object">Đối tượng thực hiện(<span style="color: red;">*</span>):</label></td>
+                                    <td><textarea id="object" required="required" name="object" placeholder="..." style="width:600px; height:200px"></textarea></td>
+                                    <td class="all_error"><span id="error_object" style="color:red"></span></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="float-right"><label for="base">Cơ sở pháp lý (<span style="color: red;">*</span>):</label></td>
+                                    <td><textarea id="base" required="required" name="base" placeholder="....." style="width:600px; height:200px"></textarea></td>
+                                    <td class="all_error"><span id="error_base" style="color:red"></span></td>
+                                </tr>
+                                <tr>
+                                    <td> Văn bản đính kèm</td>
+                                    <td>
+                                        <input type="file" value="chọn tệp" name="file" id="file">&nbsp;&nbsp;&nbsp;&nbsp;
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="space-100px"></td>
+                                    <td><input type="submit"  value="Hoàn thành"  class="art-button"/></td>
+                                </tr>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="note">
+                <p>(*) Bắt buộc phải nhập</p>
+
+            </div>
+        <?php } else{
+            
+            if(isset($_POST['id'])){
+                $id=$_POST['id'];
+            }else{
+                $id=0;
+            }
+            
+            $name = $_POST['name'];
+            
+            
+            
+            
+            $category=$_POST['category'];
+            $steps=$_POST['steps'];
+            $way=$_POST['way'];
+            $object=$_POST['object'];
+            $base=$_POST['base'];
+            $time_process = $_POST['time_process'];
+            $namefile = $_FILES['file']['name'];
+            //echo $namefile;
+            //check error
+            
+            //check error
+            
+            
+            
+            //insert into document
+            if($namefile!=''){
+                $uploaddir = 'uploads/';
+                $uploadfile = $uploaddir . $_FILES['file']['name'];
+                move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
+                
+            };
+            //inser into document
+            
+            
+            
+            //insert into service
+            if($id==0){
+                $query = "INSERT INTO `document`( `Title`, `trinhtu`, `doituong`, `cachthuc`,"
+                        . " `linkOfDocu`, `thoigian`, `Co_so_phap_li`, `Category_Id`) "
+                        . "VALUES "
+                        . "('$name','$steps','$object','$way',"
+                        . "'$namefile','$time_process','$base','$category')";
+                //echo $query;
+                mysql_query($query);
+                
+                
+            }else{
+                $query = "INSERT INTO `document`( `id`,`Title`, `trinhtu`, `doituong`, `cachthuc`,"
+                        . " `linkOfDocu`, `thoigian`, `Co_so_phap_li`, `Category_Id`) "
+                        . "VALUES "
+                        . "('$id',$name','$steps','$object','$way',"
+                        . "'$namefile','$time_process','$base','$category')";
+                mysql_query($query);
+            };
+            
+            //insert into service
+            
+            
+            ?>
+            
+            <h2>Tạo thành công dịch vụ công mới</h2>
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        <?php }; ?>
+      </table>
+    </body>
+</html>
+    <?php } else{
+     header('index.php');
+    };
+?>

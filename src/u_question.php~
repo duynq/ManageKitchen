@@ -1,0 +1,13 @@
+<?php
+    require_once './config.php';
+    session_start();
+    
+    $ans = $_POST['ans'];
+    $id=$_POST['id'];
+    
+    $query = "UPDATE `question` SET `answer`='$ans',`anstime`=now() WHERE `Id` = $id";
+    
+    
+    mysql_query($query);
+    echo 1 ;
+

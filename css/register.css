@@ -1,0 +1,22 @@
+#main{
+	width:980px;
+	margin:auto;
+}
+
+#content{
+	background-color:#FAFAFA;
+}
+label.HangMoi {
+	float: left;
+	width: 120px;
+}
+.Baoloi {
+	color: #ff0000;
+}
+#dangky{
+    margin:auto;
+    font-size: 20px;
+}
+.chose{
+    font-size: 20px;
+}

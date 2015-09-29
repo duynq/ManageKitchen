@@ -1,0 +1,83 @@
+
+
+function c_faq(){
+    title = $("#title").val();
+    question = $("#question").val();
+    ans = $("#answ").val();
+    category = $("#category").val();
+    if(title == "" || question == "" || ans == ""){
+		alert("Để nghị nhập đủ cả 3 trường")    	
+    }else if (category == "Chọn lĩnh vực"){
+    	alert("Chọn lĩnh vực");
+    }else{
+    
+    //chuyen du lieu len server
+    
+    
+//    alert(title);
+//    alert(question);
+   alert(ans);
+//    alert(category);
+
+    $.ajax({
+       url:'src/create_faq.php',
+       type:'POST',
+       data:{title:title, question:question, ans:ans, category:category},
+        success: function(data) {
+            if(data==1){
+                alert("Thêm thành công");
+                location.reload(true); 
+            }else{
+                document.write(data);
+						location.reload(true);		
+            }
+        }
+    });
+    }
+}
+function u_faq(id){
+	ans = document.getElementById(id).value
+	alert(ans);
+    //ans=t.parentNode.parentNode.previousSibling.value;
+    //ans = $("#answ").val();
+	//ans = $("#answ").val();
+    //alert(ans);
+    //ans = $("#answ").val();
+    $.ajax({
+       url:'src/u_faq.php',
+       type:'POST',
+       data:{ans:ans, id:id},
+        success: function(data) {
+            if(data==1){
+                alert("Đã sửa");
+					location.reload(true); 
+            }//else{
+                //document.write(data);
+                
+                //ajax viet lai
+            //}
+        }
+    });
+}
+function del_faq(id){
+	//id = 
+	//alert(id);
+    //ans=t.previousSibling.previousSibling.value;
+    $.ajax({
+       url:'src/del_faq.php',
+       type:'POST',
+       data:{id:id},
+        success: function(data) {
+            if(data==1){
+                alert("Đã xóa");
+                location.reload(true);
+            }//else{
+                //document.write(data);
+                
+                //ajax viet lai
+            //}
+        }
+        
+    });
+    //location.reload(true);
+}

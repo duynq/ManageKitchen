@@ -1,0 +1,270 @@
+<?php
+    require_once './src/config.php';
+    session_start();
+    $title = '';
+    $category = '';
+    $user_id='';
+    $time='';
+    $anwering='';
+    if(isset( $_GET['p_name'])){
+        $title= $_GET['p_name'];
+    };
+
+    if(isset( $_GET['p_domain'])){
+        $category = $_GET['p_domain'];
+    };
+
+    if(isset( $_GET['user_id'])){
+        $user_id = $_GET['user_id'];
+    };
+    if(isset( $_GET['time'])){
+        $time = $_GET['time'];
+    };
+    if(isset( $_GET['anwering'])){
+        $anwering = $_GET['anwering'];
+    };
+    //echo $time;
+    
+?>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="css/faq.css">
+        <link type="text/css" rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/faq.js"></script>
+        <title>Hỏi Đáp</title>
+    </head>
+    
+    <body>
+        <div class="portletheadertv">
+            <form action="faq.php" method="GET">
+                <table cellpadding="2" cellspacing="2" border="0" id="itemSearchTable">
+
+                
+                    <tbody>
+                        <tr>
+                            <td>Câu hỏi</td>
+                            <td>
+                                <input type="text" size="50" maxlength="100" name="p_name" 
+                                       value='<?php if($title !=''){
+                                           echo $title;
+                                       }
+?>'>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Đơn vị thụ lý</td>
+                            <td><select name="p_office" id="office">
+                                    <option value="" selected="selected">-- Tất cả --</option>
+                                    <?php 
+                                        $query = "select * from category";
+                                        $res = mysql_query($query);
+                                        
+                                        if($category!=''){
+                                            while($row = mysql_fetch_array($res)){
+                                                if($row[0] == $category){
+                                                     echo "<option value='$row[0]' selected ='selected'>$row[1]</option>";
+                                                }else{
+                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                } 
+                                            }
+                                        }else{
+                                            while($row = mysql_fetch_array($res)){
+                                               echo "<option value='$row[0]'>$row[1]</option>";
+                                                 
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                        
+                        
+                        
+                        <tr>
+                            <td>Trả lời</td>
+                                    <td><select name="anwering" id="ans">
+                                            <?php 
+                                                if($anwering==0){
+                                                    echo "<option value='0' selected='selected'>Chưa trả lời</option>";
+                                                }else{
+                                                    echo "<option value='0'>Chưa trả lời</option>";
+                                                }
+                                                
+                                                if($anwering==1){
+                                                    echo "<option value='1' selected='selected'>Đã trả lời</option>";
+                                                }else{
+                                                    echo "<option value='1'>Đã trả lời</option>";
+                                                }
+                                                if($anwering==''){
+                                                    echo "<option value='' selected='selected'>-- Tất cả --</option>";
+                                                }else{
+                                                    echo "<option value=''>-- Tất cả --</option>";
+                                                }
+                                                
+                                            ?>
+                                            
+                                        </select>
+                                    </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="submit" value="Tìm kiếm">
+                            </td>
+                        </tr>
+                    </tbody>
+                
+                </table>
+            </form>
+        </div>
+        
+        <span id='public'></span>
+        <div style="text-align:justify;margin:10px 5px 0px 5px;">
+                <div style="line-height:10px;">&nbsp;</div>
+                <table cellpadding="0" cellspacing="0" border="1" border-color:#000000 id="showByMainTbl">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="80%">
+                        
+                    </colgroup>
+                    <tbody id="data">
+                        <?php 
+                            if(isset($_SESSION['level']) && $_SESSION['level']==2){
+                                
+                            
+                        ?>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Tiêu đề câu hỏi  </td>
+                            <td style='font-weight:bold;'><textarea style="width:100%" id="title"></textarea></td>
+                        </tr>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Câu hỏi  </td>
+                            <td style='font-weight:bold;' ><textarea style="width:100%" id="question"></textarea></td>
+                        </tr>
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Trả lời  </td>
+                            <td style='font-weight:bold;'><textarea style="width:100%; height: 120px" id="answ"></textarea></td>
+                        </tr>
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>
+                                
+                                
+                                
+                            </td>
+                            <td style='font-weight:bold;'>
+                            		<select id="category" name="category">
+                                        <!--option value="" selected="selected">Chọn lĩnh vực</option-->
+                                        <optioion value="" selected="selected">
+                                <?php 
+                                    $query = "select * from category";
+                                    $res = mysql_query($query);
+                                    while($row = mysql_fetch_array($res)){
+                                        echo "<option value='$row[0]'>$row[1]</option>";
+                                    }
+                                ?>
+                                </option>
+                                </select>
+                                <br><br>
+                                <input type="button" class="art-button" value="Thêm câu hỏi" onclick="c_faq()">
+                            </td>
+                        </tr>
+                        
+                     
+                            
+                        
+                        <?php 
+                            $query = "SELECT   `title`, `question`, `answer`, `name`, faq.`Id` FROM `faq`"
+                                    . " inner join category on faq.category_id = category.id";
+                            //echo $query;
+                            $res = mysql_query($query);
+                            while($row = mysql_fetch_array($res)){
+                        ?>
+                         
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;' colspan="2">Hỏi về lĩnh vực <?php echo $row[3]?> : <?php echo $row[0]?>
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Câu hỏi: </td>
+                            <td style='font-weight:bold;'> <?php echo $row[1]?></td>
+                        </tr>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Trả lời  </td>
+                            <td style='font-weight:bold;'><textarea style="width:95%; height: 120px" id='<?php echo $row[4] ?>'><?php echo "$row[2]"?></textarea></td>
+                        </tr>
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>
+                  
+                            </td>
+                            <td style='font-weight:bold;'>
+                                <input type="button" class="art-button" value="Lưu" onclick="u_faq(<?php echo $row[4]?>)">
+                                <input type="button" class="art-button" value="Xóa" onclick="del_faq(<?php echo $row[4]?>)">
+                            </td>
+                        </tr>
+                        
+                        <?php }
+                            	?>
+                            	<?php }else {
+                            	?>
+                            	<?php 
+                            $query = "SELECT  `title`, `question`, `answer`, `name` FROM `faq`"
+                                    . " inner join category on faq.category_id = category.id";
+                            //echo $query;
+                            $res = mysql_query($query);
+                            while($row = mysql_fetch_array($res)){
+                        ?>
+                         
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;' colspan="2">Hỏi về lĩnh vực <?php echo $row[3]?> với tiêu đề: <?php echo $row[0]?>
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Câu hỏi: </td>
+                            <td style='font-weight:bold;'> <?php echo $row[1]?></td>
+                        </tr>
+                        
+                        <tr style='text-align:center;' class='td1'>
+                            <td style='font-weight:bold;'>Trả lời  </td>
+                            <td style='font-weight:bold;'><?php echo"$row[2]"?></td>
+                        </tr>                       
+                        
+                          <?php 
+                        
+                            }
+                            	
+                            
+                        ?>  	
+                            	
+                        
+                        <?php 
+                        
+                            }
+                            	
+                            
+                        ?>
+                        
+                        
+                        
+                        
+
+                    </tbody>
+                </table>
+            
+            </div>
+        
+        
+    </body>
+    
+</html>
+
